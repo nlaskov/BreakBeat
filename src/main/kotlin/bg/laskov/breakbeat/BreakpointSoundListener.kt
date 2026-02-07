@@ -1,5 +1,6 @@
-package bg.laskov
+package bg.laskov.breakbeat
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSessionListener
@@ -7,17 +8,15 @@ import com.intellij.xdebugger.XDebuggerManager
 import com.intellij.xdebugger.XDebuggerManagerListener
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.xdebugger.impl.breakpoints.XLineBreakpointImpl
-import javax.sound.sampled.AudioSystem
-import javax.sound.sampled.Clip
-import java.util.concurrent.atomic.AtomicReference
 
 class BreakpointSoundListener(private val project: Project) {
 
-    private val LOG = Logger.getInstance(BreakpointSoundListener::class.java)
-    private val currentClip = AtomicReference<Clip?>()
+    private val logger = Logger.getInstance(BreakpointSoundListener::class.java)
+    private val soundPlayer =
+        ApplicationManager.getApplication().getService(SoundPlayer::class.java)
 
     fun attachListener() {
-        LOG.info("Breakpoint listener attached for project: ${project.name}")
+        logger.info("Breakpoint listener attached for project: ${project.name}")
 
         project.messageBus.connect().subscribe(
             XDebuggerManager.TOPIC,
@@ -63,27 +62,16 @@ class BreakpointSoundListener(private val project: Project) {
         try {
             stopSound() // stop any previous sound first
 
-            val soundFileName = BreakpointSoundSettings.instance.soundFile ?: return
-            val resourcePath = "sounds/$soundFileName.wav"
-            val url = BreakpointSoundListener::class.java.classLoader.getResource(resourcePath)
-                ?: throw IllegalStateException("Sound resource not found: $resourcePath")
-            val audioInputStream = AudioSystem.getAudioInputStream(url)
-            val clip: Clip = AudioSystem.getClip()
-            clip.open(audioInputStream)
-            clip.start()
+            soundPlayer.play()
 
-            currentClip.set(clip)
-            LOG.info("Playing breakpoint sound!")
+            logger.info("Playing breakpoint sound!")
         } catch (ex: Exception) {
-            LOG.error("Failed to play sound", ex)
+            logger.error("Failed to play sound", ex)
         }
     }
 
     private fun stopSound() {
-        currentClip.getAndSet(null)?.let {
-            it.stop()
-            it.close()
-        }
+        soundPlayer.stop()
     }
 
 }

@@ -1,4 +1,4 @@
-package bg.laskov
+package bg.laskov.breakbeat
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.Service.Level
@@ -8,8 +8,6 @@ import com.intellij.openapi.components.Storage
 @State(name = "BreakpointSoundSettings", storages = [Storage("breakpointSound.xml")])
 @Service(Level.APP)
 class BreakpointSoundSettings {
-
-    var soundFile: String? = "beep"
 
     companion object {
         val instance: BreakpointSoundSettings
