@@ -1,0 +1,48 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>bg.laskov.breakbeat</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>BreakBeat</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="nikola@laskov.us">Nikola Laskov</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    <h2>BreakBeat – Audible Debugging for IntelliJ</h2>
+    <p>Bring your debugging experience to life with <strong>BreakBeat</strong>, the IntelliJ plugin that plays custom sounds whenever your breakpoints are hit. Stay informed without constantly staring at your IDE!</p>
+    <h3>Key Features:</h3>
+    <ul>
+        <li><strong>Custom Sounds:</strong> Assign unique audio alerts to your breakpoints to differentiate events instantly.</li>
+        <li><strong>Real-Time Updates:</strong> Change sounds while the debugger is running without restarting your IDE.</li>
+        <li><strong>Easy Configuration:</strong> Quick and intuitive UI for managing sounds and volume.</li>
+        <li><strong>Non-Intrusive:</strong> Lightweight and optimized to not interfere with your coding workflow.</li>
+    </ul>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="bg.laskov.breakbeat.BreakBeat"/>
+        <projectConfigurable instance="bg.laskov.breakbeat.BreakpointSoundConfigurable"
+                             displayName="BreakBeat Settings"/>
+    </extensions>
+
+    <actions>
+        <!-- toolbar placement -->
+        <action id="ToggleBreakpointSound"
+                class="bg.laskov.breakbeat.ToggleBreakpointSoundAction"
+                description="Toggle breakpoint sound">
+            <add-to-group group-id="MainToolBar" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
