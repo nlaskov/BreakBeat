@@ -40,12 +40,4 @@
                 implementation="bg.laskov.breakbeat.BreakpointSoundStatusBarWidgetFactory" />
 
     </extensions>
-
-    <actions>
-        <!-- toolbar placement -->
-        <action id="ToggleBreakpointSound"
-                class="bg.laskov.breakbeat.ToggleBreakpointSoundAction"
-                description="Toggle breakpoint sound">
-        </action>
-    </actions>
 </idea-plugin>
