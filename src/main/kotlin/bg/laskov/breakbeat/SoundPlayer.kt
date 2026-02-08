@@ -16,16 +16,10 @@ class SoundPlayer {
     @Volatile
     private var loading = false
 
-    @Volatile
-    private var soundFile: String? = null
-
-    @Volatile
-    private var volume: Float = 50F
-
-    var enabled = true
+    private val settings = BreakpointSoundSettings.getInstance()
 
     fun play() {
-        if (!enabled) {
+        if (!settings.state.enabled) {
             return
         }
         val current = clip ?: return
@@ -37,7 +31,7 @@ class SoundPlayer {
         val gainControl = current.getControl(FloatControl.Type.MASTER_GAIN) as FloatControl
         val min = gainControl.minimum    // usually negative, e.g., -80 dB
         val max = gainControl.maximum    // usually 6 dB
-        val volumeNormalized = volume / 100f
+        val volumeNormalized = settings.state.volume / 100f
 
         // Convert linear 0..1 volume to decibels
         val gain = if (volumeNormalized == 0f) {
@@ -58,20 +52,22 @@ class SoundPlayer {
         }
     }
 
-    fun reload(soundFile: String?, volume: Float) {
-        this.soundFile = soundFile
-        this.volume = volume
+    fun reload(soundFile: String, volume: Float) {
 
-        if (soundFile == null) {
-            dispose()
-            return
-        }
+        val settings = BreakpointSoundSettings.getInstance()
+        settings.state.selectedSoundPath = soundFile
+        settings.state.volume = volume
 
         val oldClip = clip
         loadAsync(soundFile) {
             oldClip?.stop()
             oldClip?.close()
         }
+    }
+
+    fun reload(soundFile: String, volume: Float, enabled: Boolean) {
+        this.reload(soundFile, volume)
+        this.settings.state.enabled = enabled
     }
 
     private fun loadAsync(soundFile: String, onLoaded: (() -> Unit)? = null) {
@@ -103,10 +99,15 @@ class SoundPlayer {
     }
 
     fun getCurrentSoundFile(): String {
-        return soundFile ?: ""
+        return settings.state.selectedSoundPath ?: ""
     }
 
     fun getVolume(): Float {
-        return volume
+        return settings.state.volume
+    }
+
+    fun setEnabled(enabled: Boolean) {
+        this.settings.state.enabled = enabled
+
     }
 }

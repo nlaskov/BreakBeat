@@ -12,7 +12,6 @@ class BreakpointSoundStatusBarWidget (
 ) : StatusBarWidget, StatusBarWidget.IconPresentation {
 
     companion object {
-        // Use emoji as icon text (works as icon text in toolbar)
         private val ENABLED_ICON: Icon by lazy {
             IconLoader.getIcon("/icons/sound_on.svg", ToggleBreakpointSoundAction::class.java)
         }
@@ -36,7 +35,6 @@ class BreakpointSoundStatusBarWidget (
 
     override fun getClickConsumer(): Consumer<MouseEvent> =
         Consumer {
-            // reuse your existing toggle logic
             ToggleBreakpointSoundAction.enabled =
                 !ToggleBreakpointSoundAction.enabled
 
@@ -45,7 +43,7 @@ class BreakpointSoundStatusBarWidget (
                     .getApplication()
                     .getService(SoundPlayer::class.java)
 
-            soundPlayer.enabled = ToggleBreakpointSoundAction.enabled
+            soundPlayer.setEnabled(ToggleBreakpointSoundAction.enabled)
             if (!ToggleBreakpointSoundAction.enabled) {
                 soundPlayer.stop()
             }
