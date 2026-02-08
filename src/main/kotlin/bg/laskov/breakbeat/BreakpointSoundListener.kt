@@ -7,6 +7,7 @@ import com.intellij.xdebugger.XDebugSessionListener
 import com.intellij.xdebugger.XDebuggerManager
 import com.intellij.xdebugger.XDebuggerManagerListener
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.impl.breakpoints.XLineBreakpointImpl
 
 class BreakpointSoundListener(private val project: Project) {
@@ -31,11 +32,11 @@ class BreakpointSoundListener(private val project: Project) {
                                 XDebuggerManager.getInstance(project)
                                     .breakpointManager
                                     .allBreakpoints
-                                    .filter { it is XLineBreakpointImpl }
+                                    .filter { it is XLineBreakpoint }
                                     .first { bp ->
 
                                         // match by file + line number
-                                        ((bp as XLineBreakpointImpl).file?.name
+                                        ((bp as XLineBreakpoint).shortFilePath
                                             ?: "") == pos.file.name && (bp as XLineBreakpointImpl).line == pos.line
                                     }
                             }
