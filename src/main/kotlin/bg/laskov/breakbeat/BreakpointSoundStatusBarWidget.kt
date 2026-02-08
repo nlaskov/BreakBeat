@@ -1,10 +1,8 @@
 package bg.laskov.breakbeat
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.wm.*
-import com.intellij.openapi.wm.impl.status.widget.StatusBarWidgetsManager
 import java.awt.event.MouseEvent
 import com.intellij.util.Consumer
 import javax.swing.Icon

@@ -3,7 +3,6 @@ package bg.laskov.breakbeat
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.StatusBarWidget
 import com.intellij.openapi.wm.StatusBarWidgetFactory
-import com.intellij.util.ui.JBUI
 
 class BreakpointSoundStatusBarWidgetFactory : StatusBarWidgetFactory {
 
