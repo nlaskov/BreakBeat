@@ -13,11 +13,13 @@ class BreakpointSoundConfigurable : Configurable {
     private lateinit var soundComboBox: ComboBox<String>
     private lateinit var volumeSlider: JSlider
 
+    private val settings = BreakpointSoundSettings.getInstance()
+
     // Example list of sounds
     private val sounds = listOf("beep", "cow", "chicken")
 
-    private var selectedSound: String? = "beep"
-    private var selectedVolume: Float = 50F
+    private var selectedSound: String = settings.state.selectedSoundPath
+    private var selectedVolume: Float = settings.state.volume
 
     private val soundPlayer =
         ApplicationManager.getApplication().getService(SoundPlayer::class.java)
@@ -36,7 +38,6 @@ class BreakpointSoundConfigurable : Configurable {
         volumeSlider.addChangeListener {
             selectedVolume = volumeSlider.value.toFloat()
         }
-
 
         // Load the current selection from settings
         selectedSound = soundPlayer.getCurrentSoundFile()
@@ -59,6 +60,12 @@ class BreakpointSoundConfigurable : Configurable {
 
     override fun apply() {
         soundPlayer.reload(selectedSound, selectedVolume)
+    }
+
+    override fun reset() {
+        selectedSound = "beep"
+        selectedVolume = 50F
+        soundPlayer.reload(selectedSound, selectedVolume, enabled = true)
     }
 
     override fun getDisplayName(): String {

@@ -7,14 +7,14 @@ import com.intellij.openapi.application.ApplicationManager
 class ToggleBreakpointSoundAction : AnAction("Toggle Breakpoint Sound") {
 
     companion object {
-        var enabled = true
+        var enabled = BreakpointSoundSettings.getInstance().state.enabled
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         enabled = !enabled
 
         val soundPlayer = ApplicationManager.getApplication().getService(SoundPlayer::class.java)
-        soundPlayer.enabled = enabled
+        soundPlayer.setEnabled(enabled)
 
         if(!enabled) {
             soundPlayer.stop()

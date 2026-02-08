@@ -13,6 +13,11 @@ class BreakBeat : ProjectActivity {
         BreakpointSoundListener(project).attachListener()
 
         println("Preloading file for project: ${project.name}")
-        soundPlayer.reload("beep", 50F)
+
+        val settings = BreakpointSoundSettings.getInstance()
+        soundPlayer.reload(
+            settings.state.selectedSoundPath,
+            settings.state.volume,
+            settings.state.enabled)
     }
 }
