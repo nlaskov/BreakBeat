@@ -35,6 +35,10 @@
         <postStartupActivity implementation="bg.laskov.breakbeat.BreakBeat"/>
         <projectConfigurable instance="bg.laskov.breakbeat.BreakpointSoundConfigurable"
                              displayName="BreakBeat Settings"/>
+        <statusBarWidgetFactory
+                id="BreakpointSoundStatus"
+                implementation="bg.laskov.breakbeat.BreakpointSoundStatusBarWidgetFactory" />
+
     </extensions>
 
     <actions>
@@ -42,7 +46,6 @@
         <action id="ToggleBreakpointSound"
                 class="bg.laskov.breakbeat.ToggleBreakpointSoundAction"
                 description="Toggle breakpoint sound">
-            <add-to-group group-id="MainToolBar" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
