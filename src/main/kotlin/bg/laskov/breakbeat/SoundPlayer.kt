@@ -45,6 +45,33 @@ class SoundPlayer {
         current.start()
     }
 
+    fun playTest(soundFile: String, volume: Float) {
+        ApplicationManager.getApplication().executeOnPooledThread {
+            val testClip = loadFile(soundFile)
+
+            if (clip != null && clip?.isRunning == true) {
+                clip!!.stop()
+            }
+            testClip.framePosition = 0
+
+            val gainControl = testClip.getControl(FloatControl.Type.MASTER_GAIN) as FloatControl
+            val min = gainControl.minimum    // usually negative, e.g., -80 dB
+            val max = gainControl.maximum    // usually 6 dB
+            val volumeNormalized = volume / 100f
+
+            // Convert linear 0..1 volume to decibels
+            val gain = if (volumeNormalized == 0f) {
+                min
+            } else {
+                20 * log10(volumeNormalized.toDouble()).toFloat()
+            }
+
+            // Clamp to min/max
+            gainControl.value = gain.coerceIn(min, max)
+            testClip.start()
+        }
+    }
+
     fun stop() {
         val current = clip ?: return
         if (current.isRunning) {
@@ -52,7 +79,7 @@ class SoundPlayer {
         }
     }
 
-    fun reload(soundFile: String, volume: Float) {
+    private fun reload(soundFile: String, volume: Float) {
 
         val settings = BreakpointSoundSettings.getInstance()
         settings.state.selectedSoundPath = soundFile
@@ -76,13 +103,7 @@ class SoundPlayer {
 
         ApplicationManager.getApplication().executeOnPooledThread {
             try {
-                val resourcePath = "sounds/$soundFile.wav"
-                val url = BreakpointSoundListener::class.java.classLoader.getResource(resourcePath)
-                    ?: throw IllegalStateException("Sound resource not found: $resourcePath")
-                val audioInputStream = AudioSystem.getAudioInputStream(url)
-                val newClip: Clip = AudioSystem.getClip()
-                newClip.open(audioInputStream)
-                clip = newClip
+                clip = loadFile(soundFile)
                 onLoaded?.invoke()
             } catch (_: Exception) {
                 // swallow: sound failure should not break debugging
@@ -90,6 +111,16 @@ class SoundPlayer {
                 loading = false
             }
         }
+    }
+
+    private fun loadFile(soundFile: String) : Clip {
+        val resourcePath = "sounds/$soundFile.wav"
+        val url = BreakpointSoundListener::class.java.classLoader.getResource(resourcePath)
+            ?: throw IllegalStateException("Sound resource not found: $resourcePath")
+        val audioInputStream = AudioSystem.getAudioInputStream(url)
+        val newClip: Clip = AudioSystem.getClip()
+        newClip.open(audioInputStream)
+        return newClip
     }
 
     private fun dispose() {

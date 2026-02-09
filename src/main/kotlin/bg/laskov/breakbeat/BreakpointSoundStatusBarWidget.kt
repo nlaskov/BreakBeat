@@ -6,17 +6,20 @@ import com.intellij.openapi.wm.*
 import java.awt.event.MouseEvent
 import com.intellij.util.Consumer
 import javax.swing.Icon
+import kotlin.reflect.jvm.internal.impl.types.checker.TypeRefinementSupport.Enabled
 
-class BreakpointSoundStatusBarWidget (
+class BreakpointSoundStatusBarWidget(
     private val project: Project
 ) : StatusBarWidget, StatusBarWidget.IconPresentation {
 
+    private val settings = BreakpointSoundSettings.getInstance()
+
     companion object {
         private val ENABLED_ICON: Icon by lazy {
-            IconLoader.getIcon("/icons/sound_on.svg", ToggleBreakpointSoundAction::class.java)
+            IconLoader.getIcon("/icons/sound_on.svg", BreakpointSoundStatusBarWidget::class.java)
         }
         private val DISABLED_ICON: Icon by lazy {
-            IconLoader.getIcon("/icons/sound_off.svg", ToggleBreakpointSoundAction::class.java)
+            IconLoader.getIcon("/icons/sound_off.svg", BreakpointSoundStatusBarWidget::class.java)
         }
     }
 
@@ -25,26 +28,25 @@ class BreakpointSoundStatusBarWidget (
     override fun getPresentation(): StatusBarWidget.WidgetPresentation = this
 
     override fun getIcon(): Icon =
-        if (ToggleBreakpointSoundAction.enabled) ENABLED_ICON else DISABLED_ICON
+        if (settings.state.enabled) ENABLED_ICON else DISABLED_ICON
 
     override fun getTooltipText(): String =
-        if (ToggleBreakpointSoundAction.enabled)
+        if (settings.state.enabled)
             "Breakpoint sound: ON"
         else
             "Breakpoint sound: OFF"
 
     override fun getClickConsumer(): Consumer<MouseEvent> =
         Consumer {
-            ToggleBreakpointSoundAction.enabled =
-                !ToggleBreakpointSoundAction.enabled
+            settings.state.enabled = !settings.state.enabled
 
             val soundPlayer =
                 com.intellij.openapi.application.ApplicationManager
                     .getApplication()
                     .getService(SoundPlayer::class.java)
 
-            soundPlayer.setEnabled(ToggleBreakpointSoundAction.enabled)
-            if (!ToggleBreakpointSoundAction.enabled) {
+            soundPlayer.setEnabled(settings.state.enabled)
+            if (!settings.state.enabled) {
                 soundPlayer.stop()
             }
 
