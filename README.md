@@ -33,6 +33,18 @@ From there you can:
 
 ---
 
+### 🧩 Status Bar Widget
+
+The plugin adds a small widget to the **bottom-right corner of the IDE status bar**.
+
+The widget provides:
+- Quick visual feedback that Breakpoint Sound is active
+- One-click access to toggle the sound on or off
+
+This makes it easy to control the plugin without leaving your workflow.
+
+---
+
 ### 💡 Use Cases
 
 - Never miss a breakpoint while multitasking  
