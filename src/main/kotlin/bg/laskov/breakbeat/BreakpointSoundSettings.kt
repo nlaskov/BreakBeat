@@ -16,7 +16,7 @@ class BreakpointSoundSettings : PersistentStateComponent<BreakpointSoundSettings
     data class State(
         var enabled: Boolean = true,
         var selectedSoundPath: String = "beep",
-        var volume: Float = 1.0f,
+        var volume: Float = 50f,
         var initialized: Boolean = false
     )
 

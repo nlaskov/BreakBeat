@@ -123,20 +123,6 @@ class SoundPlayer {
         return newClip
     }
 
-    private fun dispose() {
-        clip?.stop()
-        clip?.close()
-        clip = null
-    }
-
-    fun getCurrentSoundFile(): String {
-        return settings.state.selectedSoundPath ?: ""
-    }
-
-    fun getVolume(): Float {
-        return settings.state.volume
-    }
-
     fun setEnabled(enabled: Boolean) {
         this.settings.state.enabled = enabled
 

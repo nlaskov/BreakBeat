@@ -6,7 +6,6 @@ import com.intellij.openapi.wm.*
 import java.awt.event.MouseEvent
 import com.intellij.util.Consumer
 import javax.swing.Icon
-import kotlin.reflect.jvm.internal.impl.types.checker.TypeRefinementSupport.Enabled
 
 class BreakpointSoundStatusBarWidget(
     private val project: Project
