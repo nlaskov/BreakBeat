@@ -1,5 +1,6 @@
 package bg.laskov.breakbeat
 
+import bg.laskov.breakbeat.enums.BreakpointControlMode
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.Service.Level
@@ -11,13 +12,14 @@ import com.intellij.openapi.components.Storage
     name = "BreakpointSoundSettings",
     storages = [Storage("breakpoint-sound.xml")]
 )
-class BreakpointSoundSettings : PersistentStateComponent<BreakpointSoundSettings.State> {
+class BreakpointSoundState : PersistentStateComponent<BreakpointSoundState.State> {
 
     data class State(
         var enabled: Boolean = true,
         var selectedSoundPath: String = "beep",
         var volume: Float = 50f,
-        var initialized: Boolean = false
+        var initialized: Boolean = false,
+        var breakpointControlMode: BreakpointControlMode = BreakpointControlMode.ALL
     )
 
     private var state = State()
@@ -32,14 +34,15 @@ class BreakpointSoundSettings : PersistentStateComponent<BreakpointSoundSettings
             state.enabled = state.enabled
             state.volume = state.volume
             state.initialized = true
+            state.breakpointControlMode = state.breakpointControlMode
         }
 
     }
 
     companion object {
-        fun getInstance(): BreakpointSoundSettings =
+        fun getInstance(): BreakpointSoundState =
             com.intellij.openapi.application.ApplicationManager
                 .getApplication()
-                .getService(BreakpointSoundSettings::class.java)
+                .getService(BreakpointSoundState::class.java)
     }
 }

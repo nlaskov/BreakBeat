@@ -14,7 +14,7 @@ class BreakBeat : ProjectActivity {
 
         println("Preloading file for project: ${project.name}")
 
-        val settings = BreakpointSoundSettings.getInstance()
+        val settings = BreakpointSoundState.getInstance()
         soundPlayer.reload(
             settings.state.selectedSoundPath,
             settings.state.volume,

@@ -33,11 +33,11 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="bg.laskov.breakbeat.BreakBeat"/>
-        <projectConfigurable instance="bg.laskov.breakbeat.BreakpointSoundConfigurable"
+        <projectConfigurable instance="bg.laskov.breakbeat.ui.BreakpointSoundConfigurable"
                              displayName="BreakBeat Settings"/>
         <statusBarWidgetFactory
                 id="BreakpointSoundStatus"
-                implementation="bg.laskov.breakbeat.BreakpointSoundStatusBarWidgetFactory" />
+                implementation="bg.laskov.breakbeat.ui.BreakpointSoundStatusBarWidgetFactory" />
 
     </extensions>
 </idea-plugin>
