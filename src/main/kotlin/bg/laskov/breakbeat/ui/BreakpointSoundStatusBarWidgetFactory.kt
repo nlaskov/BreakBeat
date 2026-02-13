@@ -1,4 +1,4 @@
-package bg.laskov.breakbeat
+package bg.laskov.breakbeat.ui
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.StatusBarWidget

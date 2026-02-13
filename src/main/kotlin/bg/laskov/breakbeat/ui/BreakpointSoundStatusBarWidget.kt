@@ -1,5 +1,8 @@
-package bg.laskov.breakbeat
+package bg.laskov.breakbeat.ui
 
+import bg.laskov.breakbeat.BreakpointSoundState
+import bg.laskov.breakbeat.SoundPlayer
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.wm.*
@@ -11,7 +14,7 @@ class BreakpointSoundStatusBarWidget(
     private val project: Project
 ) : StatusBarWidget, StatusBarWidget.IconPresentation {
 
-    private val settings = BreakpointSoundSettings.getInstance()
+    private val settings = BreakpointSoundState.getInstance()
 
     companion object {
         private val ENABLED_ICON: Icon by lazy {
@@ -40,7 +43,7 @@ class BreakpointSoundStatusBarWidget(
             settings.state.enabled = !settings.state.enabled
 
             val soundPlayer =
-                com.intellij.openapi.application.ApplicationManager
+                ApplicationManager
                     .getApplication()
                     .getService(SoundPlayer::class.java)
 

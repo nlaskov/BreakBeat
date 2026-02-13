@@ -1,0 +1,14 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <!-- background -->
+    <circle cx="8" cy="8" r="7" fill="none" stroke="#2DBE60" stroke-width="1.5"/>
+
+    <!-- speaker -->
+    <path
+            d="M6.2 9.2H4.9C4.4 9.2 4 8.8 4 8.3V7.7C4 7.2 4.4 6.8 4.9 6.8H6.2L8.1 5.6C8.5 5.4 9 5.7 9 6.1V9.9C9 10.3 8.5 10.6 8.1 10.4L6.2 9.2Z"
+            fill="#2DBE60"/>
+
+    <!-- mute slash -->
+    <path
+            d="M5.1 10.9L11.3 4.7"
+            fill="none" stroke="#2DBE60" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

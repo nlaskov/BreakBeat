@@ -1,5 +1,6 @@
 package bg.laskov.breakbeat
 
+import bg.laskov.breakbeat.listeners.BreakpointSoundListener
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import javax.sound.sampled.AudioSystem
@@ -16,7 +17,7 @@ class SoundPlayer {
     @Volatile
     private var loading = false
 
-    private val settings = BreakpointSoundSettings.getInstance()
+    private val settings = BreakpointSoundState.getInstance()
 
     fun play() {
         if (!settings.state.enabled) {
@@ -81,7 +82,7 @@ class SoundPlayer {
 
     private fun reload(soundFile: String, volume: Float) {
 
-        val settings = BreakpointSoundSettings.getInstance()
+        val settings = BreakpointSoundState.getInstance()
         settings.state.selectedSoundPath = soundFile
         settings.state.volume = volume
 
