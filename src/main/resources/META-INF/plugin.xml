@@ -6,15 +6,46 @@
     <vendor email="nikola@laskov.us">Nikola Laskov</vendor>
 
     <description><![CDATA[
-    <h2>BreakBeat – Audible Debugging for IntelliJ</h2>
-    <p>Bring your debugging experience to life with <strong>BreakBeat</strong>, the IntelliJ plugin that plays custom sounds whenever your breakpoints are hit. Stay informed without constantly staring at your IDE!</p>
-    <h3>Key Features:</h3>
+    <h2>🔊 BreakBeat – Audible Debugging for IntelliJ</h2>
+
+    <p><strong>BreakBeat</strong> enhances your debugging workflow by playing a customizable sound whenever your breakpoints are hit. Stay informed without constantly watching your IDE — hear when execution stops.</p>
+
+    <h3>✨ Key Features</h3>
     <ul>
-        <li><strong>Custom Sounds:</strong> Assign unique audio alerts to your breakpoints to differentiate events instantly.</li>
-        <li><strong>Real-Time Updates:</strong> Change sounds while the debugger is running without restarting your IDE.</li>
-        <li><strong>Easy Configuration:</strong> Quick and intuitive UI for managing sounds and volume.</li>
-        <li><strong>Non-Intrusive:</strong> Lightweight and optimized to not interfere with your coding workflow.</li>
+        <li><strong>Sound on Breakpoint Hit:</strong> Instantly hear when execution pauses.</li>
+        <li><strong>Custom Sound Java Breakpoints:</strong> Create special breakpoints that trigger audio only when you want.</li>
+        <li><strong>Double‑Click Creation:</strong> Quickly create a Sound Java Breakpoint by double‑clicking in the editor gutter.</li>
+        <li><strong>Sound Modes:</strong>
+            <ul>
+                <li><strong>All Breakpoints Mode</strong> – Play sound for every breakpoint.</li>
+                <li><strong>Custom Only Mode</strong> – Play sound only for Sound Java Breakpoints.</li>
+            </ul>
+        </li>
+        <li><strong>Live Configuration:</strong> Change sound settings while the debugger is running.</li>
+        <li><strong>Status Bar Widget:</strong> Quickly enable or disable sound from the IDE status bar.</li>
+        <li><strong>Lightweight & Non‑Intrusive:</strong> Designed to integrate seamlessly into your workflow.</li>
     </ul>
+
+    <h3>🎯 Sound Java Breakpoints</h3>
+    <p>Sound Java Breakpoints behave exactly like standard breakpoints:</p>
+    <ul>
+        <li>Stop execution</li>
+        <li>Support conditions and suspend policies</li>
+        <li>Fully compatible with IntelliJ’s debugger features</li>
+    </ul>
+    <p>They simply add optional audio feedback for improved focus and awareness.</p>
+
+    <p><strong>Note:</strong> Sound Java Breakpoints are currently supported only for <strong>Java debugging in IntelliJ IDEA</strong>.
+    In other JetBrains IDEs, BreakBeat works in <em>All Breakpoints Mode</em>.</p>
+
+    <h3>💡 Ideal For</h3>
+    <ul>
+        <li>Multi‑monitor debugging setups</li>
+        <li>Long debugging sessions</li>
+        <li>Improved focus and accessibility</li>
+        <li>Marking important breakpoints with audio cues</li>
+    </ul>
+
   ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
