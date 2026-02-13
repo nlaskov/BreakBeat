@@ -32,7 +32,6 @@ class BreakpointSoundConfigurable : Configurable {
     private lateinit var volumePresetComboBox: ComboBox<String>
     private lateinit var testButton: JButton
     private val allRadio = JRadioButton("ALL")
-    private val noneRadio = JRadioButton("NONE")
     private val customRadio = JRadioButton("CUSTOM")
     private val breakpointControlPanel = JPanel()
 
@@ -75,27 +74,22 @@ class BreakpointSoundConfigurable : Configurable {
         // Needed for radio button grouping (allows only one to be selected at a time)
         val group = ButtonGroup()
         group.add(allRadio)
-        group.add(noneRadio)
         group.add(customRadio)
 
         when (selectedBreakpointControl) {
-            BreakpointControlMode.NONE -> noneRadio.isSelected = true
             BreakpointControlMode.CUSTOM -> customRadio.isSelected = true
             else -> allRadio.isSelected = true
         }
 
         allRadio.addActionListener { updateSelectedControl(BreakpointControlMode.ALL) }
         customRadio.addActionListener { updateSelectedControl(BreakpointControlMode.CUSTOM) }
-        noneRadio.addActionListener { updateSelectedControl(BreakpointControlMode.NONE) }
 
         // Respect global enable toggle (optional, keeps UI consistent)
         allRadio.isEnabled = selectedEnabled
-        noneRadio.isEnabled = selectedEnabled
         customRadio.isEnabled = selectedEnabled
 
         breakpointControlPanel.add(allRadio)
         breakpointControlPanel.add(customRadio)
-        breakpointControlPanel.add(noneRadio)
 
         enabledToggle.addItemListener {
             selectedEnabled = enabledToggle.isSelected
@@ -103,7 +97,6 @@ class BreakpointSoundConfigurable : Configurable {
             if (this::volumePresetComboBox.isInitialized) volumePresetComboBox.isEnabled = selectedEnabled
             if (this::testButton.isInitialized) testButton.isEnabled = selectedEnabled
             allRadio.isEnabled = selectedEnabled
-            noneRadio.isEnabled = selectedEnabled
             customRadio.isEnabled = selectedEnabled
         }
 
@@ -185,12 +178,10 @@ class BreakpointSoundConfigurable : Configurable {
             enabledToggle.isSelected = selectedEnabled
         }
 
-        this.noneRadio.isEnabled = selectedEnabled
         this.customRadio.isEnabled = selectedEnabled
         this.allRadio.isEnabled = selectedEnabled
 
         when (selectedBreakpointControl) {
-            BreakpointControlMode.NONE -> noneRadio.isSelected = true
             BreakpointControlMode.CUSTOM -> customRadio.isSelected = true
             else -> allRadio.isSelected = true
         }

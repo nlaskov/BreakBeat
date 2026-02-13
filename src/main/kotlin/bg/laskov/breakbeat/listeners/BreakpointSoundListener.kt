@@ -1,12 +1,16 @@
-package bg.laskov.breakbeat
+package bg.laskov.breakbeat.listeners
 
+import bg.laskov.breakbeat.BreakpointSoundState
+import bg.laskov.breakbeat.SoundPlayer
+import bg.laskov.breakbeat.breakpoint.SoundJavaLineBreakpointType
+import bg.laskov.breakbeat.enums.BreakpointControlMode
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSessionListener
 import com.intellij.xdebugger.XDebuggerManager
 import com.intellij.xdebugger.XDebuggerManagerListener
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 
@@ -15,6 +19,7 @@ class BreakpointSoundListener(private val project: Project) {
     private val logger = Logger.getInstance(BreakpointSoundListener::class.java)
     private val soundPlayer =
         ApplicationManager.getApplication().getService(SoundPlayer::class.java)
+    private val settings = BreakpointSoundState.getInstance()
 
     fun attachListener() {
         logger.info("Breakpoint listener attached for project: ${project.name}")
@@ -40,7 +45,10 @@ class BreakpointSoundListener(private val project: Project) {
                             }
 
                             if (breakpoint != null) {
-                                playSoundForBreakpoint()
+                                if (settings.state.breakpointControlMode == BreakpointControlMode.ALL) playSoundForBreakpoint()
+                                else if (settings.state.breakpointControlMode == BreakpointControlMode.CUSTOM && breakpoint.type == SoundJavaLineBreakpointType.getInstance()) {
+                                    playSoundForBreakpoint()
+                                }
                             }
                         }
 

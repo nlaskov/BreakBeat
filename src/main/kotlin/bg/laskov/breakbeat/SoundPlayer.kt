@@ -1,5 +1,6 @@
 package bg.laskov.breakbeat
 
+import bg.laskov.breakbeat.listeners.BreakpointSoundListener
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import javax.sound.sampled.AudioSystem
