@@ -6,7 +6,7 @@
     <vendor email="nikola@laskov.us">Nikola Laskov</vendor>
 
     <description><![CDATA[
-    <h2>🔊 BreakBeat – Audible Debugging for IntelliJ</h2>
+    <h2>BreakBeat – Audible Debugging for IntelliJ</h2>
 
     <p><strong>BreakBeat</strong> enhances your debugging workflow by playing a customizable sound whenever your breakpoints are hit. Stay informed without constantly watching your IDE — hear when execution stops.</p>
 
