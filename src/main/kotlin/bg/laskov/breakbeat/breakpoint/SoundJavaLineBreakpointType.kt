@@ -30,27 +30,7 @@ class SoundJavaLineBreakpointType :
         return BreakbeatIcons.SOUND_BREAKPOINT_DISABLED
     }
 
-    override fun getPendingIcon(): Icon {
-        return BreakbeatIcons.SOUND_BREAKPOINT
-    }
-
-    override fun getTemporaryIcon(): Icon? {
-        return BreakbeatIcons.SOUND_BREAKPOINT
-    }
-
-    override fun getInactiveDependentIcon(): Icon {
-        return BreakbeatIcons.SOUND_BREAKPOINT
-    }
-
     override fun getSuspendNoneIcon(): Icon {
-        return BreakbeatIcons.SOUND_BREAKPOINT
-    }
-
-    override fun getMutedEnabledIcon(): Icon {
-        return BreakbeatIcons.SOUND_BREAKPOINT
-    }
-
-    override fun getMutedDisabledIcon(): Icon {
-        return BreakbeatIcons.SOUND_BREAKPOINT
+        return BreakbeatIcons.SOUND_BREAKPOINT_SUSPENDED_NONE
     }
 }

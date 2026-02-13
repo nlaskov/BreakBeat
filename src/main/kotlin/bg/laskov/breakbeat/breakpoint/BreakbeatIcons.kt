@@ -8,5 +8,8 @@ object BreakbeatIcons {
         getIcon("/icons/breakpoint_on.svg", BreakbeatIcons::class.java)
 
     val SOUND_BREAKPOINT_DISABLED: Icon =
-        getIcon("/icons/soundBreakpoint_disabled.svg", BreakbeatIcons::class.java)
+        getIcon("/icons/breakpoint_off.svg", BreakbeatIcons::class.java)
+
+    val SOUND_BREAKPOINT_SUSPENDED_NONE: Icon =
+        getIcon("/icons/breakpoint_nonesuspend.svg", BreakbeatIcons::class.java)
 }
